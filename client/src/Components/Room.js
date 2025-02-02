@@ -1,6 +1,10 @@
-import React from 'react'
+import React,{useState} from 'react'
+import { Modal,Button,Carousel } from 'react-bootstrap';
 
 function Room({room}) {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <div className='row bs'>
         <div className='col md-3'>
@@ -14,11 +18,36 @@ function Room({room}) {
         <p>Department: {room.department}</p>
         </b>
         <div style={{float:'right'}}>
-            <button className='btn btn-primary'>View Details</button>
+            <Button className='btn btn-primary' onClick={handleShow}>View Details</Button>
             </div>   
+            </div>
+  
+            
 
-    </div>
-    </div>
+      <Modal show={show} onHide={handleClose} size='lg'>
+        <Modal.Header >
+          <Modal.Title>{room.name}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          
+          <Carousel prevLabel='' nextLabel=''>
+          <Carousel.Item>
+            <img className='d-block w-100 bigimg' src={room.imageurls[0]} />
+          </Carousel.Item>
+          </Carousel>
+          <p>
+          {room.descrpition} </p></Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+            </div>
 
   )
 }
